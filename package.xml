@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <package>
   <name>cnpy</name>
-  <version>0.0.3</version>
+  <version>0.0.4</version>
   <description>library to read/write .npy and .npz files in C/C++</description>
   <maintainer email="pmitrano@umich.edu">Peter Mitrano</maintainer>
   <license>MIT</license>
