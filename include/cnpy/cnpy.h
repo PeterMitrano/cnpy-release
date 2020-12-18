@@ -59,8 +59,8 @@ namespace cnpy {
         bool fortran_order;
         size_t num_vals;
     };
-   
-    using npz_t = std::map<std::string, NpyArray>; 
+
+    using npz_t = std::map<std::string, NpyArray>;
 
     char BigEndianTest();
     char map_type(const std::type_info& t);
@@ -75,7 +75,7 @@ namespace cnpy {
     template<typename T> std::vector<char>& operator+=(std::vector<char>& lhs, const T rhs) {
         //write in little endian
         for(size_t byte = 0; byte < sizeof(T); byte++) {
-            char val = *((char*)&rhs+byte); 
+            char val = *((char*)&rhs+byte);
             lhs.push_back(val);
         }
         return lhs;
@@ -168,8 +168,8 @@ namespace cnpy {
         size_t nbytes = nels*sizeof(T) + npy_header.size();
 
         //get the CRC of the data to be added
-        uint32_t crc = crc32(0L,(uint8_t*)&npy_header[0],npy_header.size());
-        crc = crc32(crc,(uint8_t*)data,nels*sizeof(T));
+        auto crc = crc32(0,(uint8_t*)&npy_header[0],static_cast<unsigned int>(npy_header.size()));
+        crc = crc32(crc,(uint8_t*)data,static_cast<unsigned int>(nels*sizeof(T)));
 
         //build the local header
         std::vector<char> local_header;
@@ -232,7 +232,7 @@ namespace cnpy {
         npz_save(zipname, fname, &data[0], shape, mode);
     }
 
-    template<typename T> std::vector<char> create_npy_header(const std::vector<size_t>& shape) {  
+    template<typename T> std::vector<char> create_npy_header(const std::vector<size_t>& shape) {
 
         std::vector<char> dict;
         dict += "{'descr': '";
@@ -248,7 +248,7 @@ namespace cnpy {
         if(shape.size() == 1) dict += ",";
         dict += "), }";
         //pad with spaces so that preamble+dict is modulo 16 bytes. preamble is 10 bytes. dict needs to end with \n
-        int remainder = 16 - (10 + dict.size()) % 16;
+        auto remainder = 16 - (10 + dict.size()) % 16;
         dict.insert(dict.end(),remainder,' ');
         dict.back() = '\n';
 
