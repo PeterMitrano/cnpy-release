@@ -7,7 +7,6 @@ project(CNPY)
 
 set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_WINDOWS_EXPORT_ALL_SYMBOLS ON)
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wconversion -Werror")
 
 find_package(ZLIB REQUIRED)
 
@@ -22,6 +21,11 @@ target_link_libraries(cnpy ${ZLIB_LIBRARIES})
 
 add_executable(example1 example1.cpp)
 target_link_libraries(example1 cnpy)
+target_compile_options(example1 PRIVATE
+     $<$<OR:$<CXX_COMPILER_ID:Clang>,$<CXX_COMPILER_ID:AppleClang>,$<CXX_COMPILER_ID:GNU>>:
+     -Wall -Wnarrowing -Werror>
+     $<$<CXX_COMPILER_ID:MSVC>:
+          /W4>)
 
 install(TARGETS cnpy EXPORT cnpyTargets
         LIBRARY DESTINATION lib
