@@ -5,9 +5,9 @@
 #include<map>
 #include<string>
 
-const int Nx = 128;
-const int Ny = 64;
-const int Nz = 32;
+const size_t Nx = 128;
+const size_t Ny = 64;
+const size_t Nz = 32;
 
 int main()
 {
@@ -15,7 +15,7 @@ int main()
     srand(0);
     //create random data
     std::vector<std::complex<double>> data(Nx*Ny*Nz);
-    for(int i = 0;i < Nx*Ny*Nz;i++) data[i] = std::complex<double>(rand(),rand());
+    for(size_t i = 0;i < Nx*Ny*Nz;i++) data[i] = std::complex<double>(rand(),rand());
 
     //save it to file
     cnpy::npy_save("arr1.npy",&data[0],{Nz,Ny,Nx},"w");
@@ -23,11 +23,11 @@ int main()
     //load it into a new array
     cnpy::NpyArray arr = cnpy::npy_load("arr1.npy");
     std::complex<double>* loaded_data = arr.data<std::complex<double>>();
-    
+
     //make sure the loaded data matches the saved data
     assert(arr.word_size == sizeof(std::complex<double>));
     assert(arr.shape.size() == 3 && arr.shape[0] == Nz && arr.shape[1] == Ny && arr.shape[2] == Nx);
-    for(int i = 0; i < Nx*Ny*Nz;i++) assert(data[i] == loaded_data[i]);
+    for(size_t i = 0; i < Nx*Ny*Nz;i++) assert(data[i] == loaded_data[i]);
 
     //append the same data to file
     //npy array on file now has shape (Nz+Nz,Ny,Nx)
@@ -46,7 +46,7 @@ int main()
 
     //load the entire npz file
     cnpy::npz_t my_npz = cnpy::npz_load("out.npz");
-    
+
     //check that the loaded myVar1 matches myVar1
     cnpy::NpyArray arr_mv1 = my_npz["myVar1"];
     double* mv1 = arr_mv1.data<double>();
