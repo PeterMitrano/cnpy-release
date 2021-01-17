@@ -23,7 +23,7 @@ add_executable(example1 example1.cpp)
 target_link_libraries(example1 cnpy)
 target_compile_options(example1 PRIVATE
      $<$<OR:$<CXX_COMPILER_ID:Clang>,$<CXX_COMPILER_ID:AppleClang>,$<CXX_COMPILER_ID:GNU>>:
-     -Wall -Wnarrowing -Werror>
+     -Wall -Wnarrowing>
      $<$<CXX_COMPILER_ID:MSVC>:
           /W4>)
 
