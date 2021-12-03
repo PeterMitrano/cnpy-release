@@ -3,13 +3,15 @@ if (COMMAND cmake_policy)
     cmake_policy(SET CMP0003 NEW)
 endif (COMMAND cmake_policy)
 
-project(CNPY)
+project(cnpy)
 
 set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_WINDOWS_EXPORT_ALL_SYMBOLS ON)
 
 find_package(ZLIB REQUIRED)
+find_package(catkin REQUIRED)
 
+catkin_package()
 
 add_library(cnpy SHARED cnpy.cpp)
 target_include_directories(cnpy PUBLIC
