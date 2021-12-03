@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <package>
   <name>cnpy</name>
-  <version>0.0.6</version>
+  <version>0.0.7</version>
   <description>library to read/write .npy and .npz files in C/C++</description>
   <maintainer email="pmitrano@umich.edu">Peter Mitrano</maintainer>
   <license>MIT</license>
@@ -9,7 +9,7 @@
   <author>Carl Rogers</author>
   <author>Peter Mitrano</author>
 
-  <buildtool_depend>cmake</buildtool_depend>
+  <buildtool_depend>catkin</buildtool_depend>
 
   <build_depend>cmake</build_depend>
   <build_depend>zlib</build_depend>
